@@ -4,6 +4,7 @@ const express = require("express")
 const app = express()
 const port = 3000
 
+const client = require("./bin/rcon/service")
 // ROUTERS
 const main = require("./bin/routes/main")
 
