@@ -6,7 +6,7 @@ const settings = {
 }
 
 // TODO: Change the IP address and password to fetch from .env or server.properties
-const client = new RCONClient("123123.0.123.1", "password123")
+const client = new RCONClient("0.0.0.0", "password123")
 
 client.connect()
 
@@ -16,15 +16,16 @@ client.on("authenticated", () => {
   console.log("Connected to RCON server")
 })
 
+// TODO: fix this hack later, error should probably be typed to something else
 client.on("error", (e: any) => {
-  console.log(Object.keys(e))
   switch (e.errno) {
     case -3008:
-      console.log("Address not found!")
+      console.log("Address not found!, please enter a valid ip address.")
   }
 })
 
 process.on("warning", (e) => {
   console.warn(e.stack)
 })
+
 module.exports = client

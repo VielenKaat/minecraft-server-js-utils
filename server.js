@@ -4,7 +4,7 @@ const express = require("express")
 const app = express()
 const port = 3000
 
-const client = require("./bin/rcon/service")
+const API = require("./bin/rcon/serviceAPI")
 // ROUTERS
 const main = require("./bin/routes/main")
 
@@ -14,7 +14,7 @@ const main = require("./bin/routes/main")
 // })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Minecraft RCON API listening on port ${port}`)
 })
 
 app.use("/", main)

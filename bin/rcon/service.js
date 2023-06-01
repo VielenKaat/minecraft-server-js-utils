@@ -6,18 +6,18 @@ const settings = {
     rconpassword: "asd",
 };
 // TODO: Change the IP address and password to fetch from .env or server.properties
-const client = new rcon_1.RCONClient("123123.0.123.1", "password123");
+const client = new rcon_1.RCONClient("0.0.0.0", "password123");
 client.connect();
 // if connection is successful, log to terminal
 client.on("authenticated", () => {
     // console.log(`Connected to RCON server at ${settings.rconaddress}`)
     console.log("Connected to RCON server");
 });
+// TODO: fix this hack later, error should probably be typed to something else
 client.on("error", (e) => {
-    console.log(Object.keys(e));
     switch (e.errno) {
         case -3008:
-            console.log("Address not found!");
+            console.log("Address not found!, please enter a valid ip address.");
     }
 });
 process.on("warning", (e) => {

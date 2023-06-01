@@ -5,4 +5,5 @@ const router = express.Router();
 router.get("/", (req, res) => {
     res.send("Hello world from main!");
 });
+router.get("/getPlayers", (req, res) => { });
 module.exports = router;
