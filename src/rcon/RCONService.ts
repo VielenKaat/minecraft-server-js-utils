@@ -1,35 +1,39 @@
-import { RCONClient } from "@minecraft-js/rcon";
+import { RCONClient } from "@minecraft-js/rcon"
 
-class RCONService { 
-	client: RCONClient
-	
-	constructor(ip: string = "0.0.0.0", password: string = "") { 
-		this.client = new RCONClient(ip, password)
-		this.connect()
-	}
+class RCONService {
+  client: RCONClient
 
-	connect() { 
-		this.client.connect()
-		this.client.on("authenticated", () => { 
-			console.log("Connected to RCON server!")
-		}) 
+  constructor(ip: string = "0.0.0.0", password: string = "") {
+    this.client = new RCONClient(ip, password)
+    this.connect()
+  }
 
-		this.client.on("error", (e: any) => { 
-			console.log(e)
-			switch (e.errno) {
-				case -3008: 
-					console.log("Address not found! Please enter a valid IP address")
-			}
-		})
+  connect() {
+    this.client.connect()
+    this.client.on("authenticated", () => {
+      console.log("Connected to RCON server!")
+    })
 
-		process.on("warning", (e) => {
-			console.warn(e.stack)
-		})
-	}
+    this.client.on("authentication_failed", () => {
+      console.log("auth failed!")
+    })
 
-	async getPlayers() { 
-		await this.client.executeCommandAsync("list")
-	}
-} 
+    this.client.on("error", (e: any) => {
+      console.log(e)
+      switch (e.errno) {
+        case -3008:
+          console.log("Address not found! Please enter a valid IP address")
+      }
+    })
+
+    process.on("warning", (e) => {
+      console.warn(e.stack)
+    })
+  }
+
+  async getPlayers() {
+    return await this.client.executeCommandAsync("list")
+  }
+}
 
 module.exports = RCONService

@@ -11,7 +11,7 @@ const main = require("./bin/routes/main")
 // app.get("/", (req, res) => {
 //   res.send("Hello World!")
 // })
-
+app.use(main)
 app.listen(port, () => {
   console.log(`Minecraft RCON API listening on port ${port}`)
 })
