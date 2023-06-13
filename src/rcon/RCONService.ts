@@ -27,6 +27,9 @@ class RCONService {
 		})
 	}
 
+	async getPlayers() { 
+		await this.client.executeCommandAsync("list")
+	}
 } 
 
 module.exports = RCONService
