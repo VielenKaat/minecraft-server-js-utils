@@ -32,4 +32,6 @@ class RCONService {
 	}
 } 
 
-module.exports = RCONService
+
+
+export default RCONService
