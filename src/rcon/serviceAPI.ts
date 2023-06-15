@@ -1,6 +1,7 @@
 import { RCONClient } from "@minecraft-js/rcon"
+import RCONService from "./RCONService"
 
-const client: RCONClient = require("./service")
+const client = new RCONService()
 
 const serviceAPI = {
   /**
