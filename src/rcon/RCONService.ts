@@ -3,13 +3,22 @@ import { RCONClient } from "@minecraft-js/rcon"
 class RCONService {
   client: RCONClient
 
-  constructor(ip: string = "0.0.0.0", password: string = "") {
+  /**
+   *
+   * @param ip IP Address of the server
+   * @param password RCON password of the server
+   */
+  constructor(ip: string = "0.0.0.0", password: string) {
     this.client = new RCONClient(ip, password)
     this.connect()
   }
 
+  /**
+   * Call this method if a reconnect is needed
+   */
   connect() {
     this.client.connect()
+
     this.client.on("authenticated", () => {
       console.log("Connected to RCON server!")
     })
@@ -31,8 +40,12 @@ class RCONService {
     })
   }
 
-  async getPlayers() {
-    return await this.client.executeCommandAsync("list")
+  /**
+   *
+   * @returns
+   */
+  async getPlayers(): Promise<string> {
+    return this.client.executeCommandAsync("list")
   }
 }
 
