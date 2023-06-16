@@ -8,7 +8,7 @@ class RCONService {
    * @param ip IP Address of the server
    * @param password RCON password of the server
    */
-  constructor(ip: string = "0.0.0.0", password: string) {
+  constructor(ip: string = "0.0.0.0", password: string = "password123") {
     this.client = new RCONClient(ip, password)
     this.connect()
   }
@@ -72,7 +72,8 @@ class RCONService {
   }
 
   /**
-   *
+   * Returns a string, need to parse the string further to get username and password
+   * @async
    * @returns
    */
   async getPlayers(): Promise<string> {
