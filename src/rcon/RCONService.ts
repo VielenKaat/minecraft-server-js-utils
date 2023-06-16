@@ -28,16 +28,35 @@ class RCONService {
     })
 
     this.client.on("error", (e: any) => {
-      console.log(e)
       switch (e.errno) {
+        case -4078:
+          this.#removeListeners()
+
+          console.log("Server not active, attempting reconnect in 5 seconds")
+          setTimeout(() => {
+            this.connect()
+          }, 5000)
+          break
         case -3008:
           console.log("Address not found! Please enter a valid IP address")
+          break
+        default:
+          console.error(e)
+          throw new Error(e)
       }
     })
 
     process.on("warning", (e) => {
       console.warn(e.stack)
     })
+  }
+
+  /**
+   * This function should remove all the problematic listeners that was causing server crashing
+   */
+  #removeListeners(): void {
+    this.client.removeAllListeners()
+    process.removeAllListeners()
   }
 
   /**
