@@ -4,9 +4,11 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"start": "tsc --build && node server.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "nodemon server.js --trace-warnings",
-		"watch": "tsc -w"
+		"watch": "tsc -w",
+		"build": "tsc --build"
 	},
 	"keywords": [],
 	"author": "",
