@@ -2,7 +2,7 @@ import { RCONClient } from "@minecraft-js/rcon"
 
 class RCONService {
   client: RCONClient
-
+  connected: boolean = false
   /**
    *
    * @param ip IP Address of the server
@@ -20,11 +20,23 @@ class RCONService {
     this.client.connect()
 
     this.client.on("authenticated", () => {
+      this.connected = true
+      // console.log(this.connected)
       console.log("Connected to RCON server!")
     })
 
     this.client.on("authentication_failed", () => {
       console.log("auth failed!")
+    })
+
+    this.client.on("disconnect", () => {
+      // console.log(this.connected)
+      if (this.connected) {
+        console.log("Disconnecting...")
+        this.connected = false
+        this.#removeListeners()
+        this.connect()
+      }
     })
 
     this.client.on("error", (e: any) => {
